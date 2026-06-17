@@ -16,7 +16,7 @@ export class EmbeddingsService {
   // eslint-disable-next-line @typescript-eslint/no-implied-eval
   private readonly dynamicImport = new Function('s', 'return import(s)') as (
     s: string,
-  ) => Promise<{ pipeline: (...args: any[]) => Promise<unknown> }>;
+  ) => Promise<{ pipeline: (task: string, model: string) => Promise<unknown> }>;
 
   private async getPipeline(): Promise<FeatureExtractionPipeline> {
     if (!this.pipelinePromise) {
