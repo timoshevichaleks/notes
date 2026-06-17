@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+**/dist/
+
+# Angular
+.angular/
+
+# Test / coverage
+coverage/
+
+# Environment
+.env
+
+# Logs
+*.log

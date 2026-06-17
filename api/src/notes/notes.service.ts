@@ -54,9 +54,7 @@ export class NotesService {
 
   async search(userId: string, query: string) {
     const vector = await this.embeddings.embed(query);
-    const rows = await this.prisma.$queryRawUnsafe<
-      { id: string; title: string; content: string }[]
-    >(
+    const rows = await this.prisma.$queryRawUnsafe<{ id: string; title: string; content: string }[]>(
       `SELECT id, title, content FROM "Note"
        WHERE "userId" = $1 AND embedding IS NOT NULL
        ORDER BY embedding <=> $2::vector

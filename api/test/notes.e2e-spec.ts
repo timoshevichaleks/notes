@@ -22,17 +22,11 @@ describe('Notes flow (e2e)', () => {
   });
 
   it('GET /health returns ok', async () => {
-    await request(app.getHttpServer())
-      .get('/health')
-      .expect(200)
-      .expect({ status: 'ok' });
+    await request(app.getHttpServer()).get('/health').expect(200).expect({ status: 'ok' });
   });
 
   it('register → login → create note → get note', async () => {
-    await request(app.getHttpServer())
-      .post('/auth/register')
-      .send({ email, password: 'password123' })
-      .expect(201);
+    await request(app.getHttpServer()).post('/auth/register').send({ email, password: 'password123' }).expect(201);
 
     const login = await request(app.getHttpServer())
       .post('/auth/login')

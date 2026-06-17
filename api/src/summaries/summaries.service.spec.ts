@@ -5,10 +5,7 @@ import { SummariesService } from './summaries.service';
 describe('SummariesService', () => {
   async function build(apiKey: string) {
     const moduleRef = await Test.createTestingModule({
-      providers: [
-        SummariesService,
-        { provide: ConfigService, useValue: { get: () => apiKey } },
-      ],
+      providers: [SummariesService, { provide: ConfigService, useValue: { get: () => apiKey } }],
     }).compile();
     return moduleRef.get(SummariesService);
   }

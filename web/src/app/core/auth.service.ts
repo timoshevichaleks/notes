@@ -7,9 +7,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   private http = inject(HttpClient);
 
-  private readonly _token = signal<string | null>(
-    localStorage.getItem('token'),
-  );
+  private readonly _token = signal<string | null>(localStorage.getItem('token'));
   readonly token = this._token.asReadonly();
 
   register(email: string, password: string) {

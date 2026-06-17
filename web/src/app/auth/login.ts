@@ -10,12 +10,7 @@ import { AuthService } from '../core/auth.service';
     <h2>Login</h2>
     <form (ngSubmit)="submit()">
       <input [(ngModel)]="email" name="email" placeholder="email" />
-      <input
-        [(ngModel)]="password"
-        name="password"
-        type="password"
-        placeholder="password"
-      />
+      <input [(ngModel)]="password" name="password" type="password" placeholder="password" />
       <button type="submit">Sign in</button>
       <button type="button" (click)="register()">Register</button>
     </form>

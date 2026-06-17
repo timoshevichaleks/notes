@@ -34,8 +34,6 @@ describe('AuthService', () => {
 
   it('register throws on duplicate email', async () => {
     prisma.user.findUnique.mockResolvedValue({ id: 'u1' });
-    await expect(service.register('a@b.c', 'password123')).rejects.toThrow(
-      ConflictException,
-    );
+    await expect(service.register('a@b.c', 'password123')).rejects.toThrow(ConflictException);
   });
 });

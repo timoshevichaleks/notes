@@ -12,20 +12,18 @@ export class EmbeddingsService {
 
   // Keep this a real runtime dynamic import (ESM-only package). The `Function`
   // wrapper prevents TypeScript/ts-jest from down-compiling it to require().
-  private readonly dynamicImport = new Function(
-    's',
-    'return import(s)',
-  ) as (s: string) => Promise<{ pipeline: (...args: any[]) => Promise<unknown> }>;
+  // Body is a static literal (no interpolation) — not an injection vector.
+  // eslint-disable-next-line @typescript-eslint/no-implied-eval
+  private readonly dynamicImport = new Function('s', 'return import(s)') as (
+    s: string,
+  ) => Promise<{ pipeline: (...args: any[]) => Promise<unknown> }>;
 
   private async getPipeline(): Promise<FeatureExtractionPipeline> {
     if (!this.pipelinePromise) {
       this.pipelinePromise = (async () => {
         const { pipeline } = await this.dynamicImport('@xenova/transformers');
         this.logger.log('Loading embedding model all-MiniLM-L6-v2...');
-        return (await pipeline(
-          'feature-extraction',
-          'Xenova/all-MiniLM-L6-v2',
-        )) as unknown as FeatureExtractionPipeline;
+        return (await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')) as FeatureExtractionPipeline;
       })();
     }
     return this.pipelinePromise;

@@ -9,11 +9,7 @@ import { NotesService, Note, SearchResult } from '../core/notes.service';
     <h2>My notes</h2>
     <form (ngSubmit)="add()">
       <input [(ngModel)]="title" name="title" placeholder="title" />
-      <textarea
-        [(ngModel)]="content"
-        name="content"
-        placeholder="content"
-      ></textarea>
+      <textarea [(ngModel)]="content" name="content" placeholder="content"></textarea>
       <button type="submit">Add</button>
     </form>
     <button (click)="reload()">Refresh</button>
@@ -21,12 +17,7 @@ import { NotesService, Note, SearchResult } from '../core/notes.service';
     <hr />
     <h3>Ask your notes (semantic search)</h3>
     <form (ngSubmit)="search()">
-      <input
-        [(ngModel)]="query"
-        name="query"
-        placeholder="e.g. when is the deadline?"
-        style="width: 70%"
-      />
+      <input [(ngModel)]="query" name="query" placeholder="e.g. when is the deadline?" style="width: 70%" />
       <button type="submit" [disabled]="searching()">Search</button>
     </form>
     @if (searching()) {
@@ -50,7 +41,9 @@ import { NotesService, Note, SearchResult } from '../core/notes.service';
         <li>
           <strong>{{ note.title }}</strong> — {{ note.status }}
           @if (note.summary) {
-            <p><em>{{ note.summary }}</em></p>
+            <p>
+              <em>{{ note.summary }}</em>
+            </p>
             <small>{{ note.tags.join(', ') }}</small>
           }
         </li>

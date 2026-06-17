@@ -7,11 +7,7 @@ import { EmbeddingsModule } from '../embeddings/embeddings.module';
 import { SummariesModule } from '../summaries/summaries.module';
 
 @Module({
-  imports: [
-    BullModule.registerQueue({ name: SUMMARIZE_QUEUE }),
-    EmbeddingsModule,
-    SummariesModule,
-  ],
+  imports: [BullModule.registerQueue({ name: SUMMARIZE_QUEUE }), EmbeddingsModule, SummariesModule],
   controllers: [NotesController],
   providers: [NotesService],
 })

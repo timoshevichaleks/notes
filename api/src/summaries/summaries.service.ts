@@ -55,13 +55,8 @@ export class SummariesService {
     };
   }
 
-  async answerFromContext(
-    query: string,
-    notes: { title: string; content: string }[],
-  ): Promise<string> {
-    const context = notes
-      .map((n, i) => `[${i + 1}] ${n.title}\n${n.content}`)
-      .join('\n\n');
+  async answerFromContext(query: string, notes: { title: string; content: string }[]): Promise<string> {
+    const context = notes.map((n, i) => `[${i + 1}] ${n.title}\n${n.content}`).join('\n\n');
     if (!this.client) {
       return notes.length
         ? `[mock answer] Based on ${notes.length} note(s), most relevant: "${notes[0].title}"`

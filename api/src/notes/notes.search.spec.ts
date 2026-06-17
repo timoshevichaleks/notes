@@ -34,9 +34,7 @@ describe('NotesService.search', () => {
   });
 
   it('embeds query, finds notes, asks Claude with context', async () => {
-    prisma.$queryRawUnsafe.mockResolvedValue([
-      { id: 'n1', title: 'Q3 plan', content: 'deadlines...' },
-    ]);
+    prisma.$queryRawUnsafe.mockResolvedValue([{ id: 'n1', title: 'Q3 plan', content: 'deadlines...' }]);
 
     const res = await service.search('u1', 'when are deadlines');
 
