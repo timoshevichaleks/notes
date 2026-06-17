@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm install @prisma/client class-validator class-transformer @nestjs/config)",
+      "PowerShell(npm install -D prisma)"
+    ]
+  }
+}

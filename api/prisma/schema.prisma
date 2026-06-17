@@ -1,0 +1,40 @@
+// Prisma schema for AI Notes.
+// Using the classic prisma-client-js generator → import { PrismaClient } from '@prisma/client'.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum NoteStatus {
+  PENDING
+  PROCESSING
+  DONE
+  FAILED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  notes        Note[]
+  createdAt    DateTime @default(now())
+}
+
+model Note {
+  id        String     @id @default(uuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  content   String
+  summary   String?
+  tags      String[]
+  status    NoteStatus @default(PENDING)
+  embedding Unsupported("vector(384)")?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
