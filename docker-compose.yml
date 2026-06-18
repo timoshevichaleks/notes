@@ -19,17 +19,64 @@ services:
     ports:
       - '6379:6379'
 
-  api:
-    build: ./api
-    container_name: ainotes-api
+  gateway:
+    build:
+      context: ./api
+      dockerfile: apps/gateway/Dockerfile
+    container_name: ainotes-gateway
+    environment:
+      JWT_SECRET: dev-secret-change-me
+      AUTH_HOST: auth
+      AUTH_PORT: 3001
+      NOTES_HOST: notes
+      NOTES_PORT: 3002
+    ports:
+      - '3000:3000'
+    depends_on:
+      - auth
+      - notes
+
+  auth:
+    build:
+      context: ./api
+      dockerfile: apps/auth/Dockerfile
+    container_name: ainotes-auth
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ainotes?schema=public
+      JWT_SECRET: dev-secret-change-me
+      AUTH_HOST: 0.0.0.0
+      AUTH_PORT: 3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  notes:
+    build:
+      context: ./api
+      dockerfile: apps/notes/Dockerfile
+    container_name: ainotes-notes
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ainotes?schema=public
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      JWT_SECRET: dev-secret-change-me
+      NOTES_HOST: 0.0.0.0
+      NOTES_PORT: 3002
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  worker:
+    build:
+      context: ./api
+      dockerfile: apps/worker/Dockerfile
+    container_name: ainotes-worker
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ainotes?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
-    ports:
-      - '3000:3000'
     depends_on:
       postgres:
         condition: service_healthy
