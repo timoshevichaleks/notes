@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All services" type="CompoundRunConfigurationType">
+    <toRun name="auth" type="js.build_tools.npm" />
+    <toRun name="notes" type="js.build_tools.npm" />
+    <toRun name="worker" type="js.build_tools.npm" />
+    <toRun name="gateway" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>

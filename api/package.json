@@ -15,6 +15,10 @@
     "start:auth": "nest start auth --watch",
     "start:notes": "nest start notes --watch",
     "start:worker": "nest start worker --watch",
+    "debug:gateway": "nest start gateway --debug 9229 --watch",
+    "debug:auth": "nest start auth --debug 9230 --watch",
+    "debug:notes": "nest start notes --debug 9231 --watch",
+    "debug:worker": "nest start worker --debug 9232 --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"

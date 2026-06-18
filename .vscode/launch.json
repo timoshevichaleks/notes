@@ -1,0 +1,59 @@
+{
+  // Отладка микросервисов. Порядок: в терминале запусти нужный сервис в debug-режиме
+  // (напр. `cd api && npm run debug:auth`), затем здесь нажми F5 и выбери соответствующий Attach.
+  // `restart: true` — повторно подцепится после авто-перезапуска watch.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach: gateway (9229)",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/api/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Attach: auth (9230)",
+      "type": "node",
+      "request": "attach",
+      "port": 9230,
+      "restart": true,
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/api/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Attach: notes (9231)",
+      "type": "node",
+      "request": "attach",
+      "port": 9231,
+      "restart": true,
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/api/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Attach: worker (9232)",
+      "type": "node",
+      "request": "attach",
+      "port": 9232,
+      "restart": true,
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/api/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Attach: ALL services",
+      "configurations": [
+        "Attach: gateway (9229)",
+        "Attach: auth (9230)",
+        "Attach: notes (9231)",
+        "Attach: worker (9232)"
+      ]
+    }
+  ]
+}
